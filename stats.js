@@ -11,7 +11,6 @@ function deleteExistingOutputFile() {
 }
 
 
-
 function processData() {
   const data = fs.readFileSync(inputFile, "utf-8");
   const lines = data.split(/\n/);
