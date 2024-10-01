@@ -13,28 +13,34 @@ function deleteExistingOutputFile() {
 
 function processData() {
   const data = fs.readFileSync(inputFile, "utf-8");
+  // console.log(data)
   const lines = data.split(/\n/);
-
 
   const newObject = {}
 
   for (const line of lines) { 
     let elements = line.split(delimiter); 
     const passwordLength = elements[1].length 
- 
+
     if (newObject[`${passwordLength} chars long`]) {
       newObject[`${passwordLength} chars long`] += 1
     } else {
       newObject[`${passwordLength} chars long`] = 1
     }
   }
-
-  console.log(newObject)
+  return newObject;
 }
 
+const passwordLengthObject = processData()
+
+function writeObjectToFile (Object) {
+  fs.writeFileSync("./passwords_length_object.txt", JSON.stringify(Object).replaceAll(",", ",\n"))
+}
 
 
 
 // Main execution
 // deleteExistingOutputFile(); 
 processData();
+writeObjectToFile(passwordLengthObject)
+
